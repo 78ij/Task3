@@ -14,7 +14,7 @@ int main(){
     heap.Add(100);
     heap.Traverse(0);
     cout << "\n";
-    heap.IncreaseKey(10,0);
+    heap.DecreaseKey(10,0);
     heap.Traverse(0);
     cout << "\n";
 }

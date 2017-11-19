@@ -29,6 +29,7 @@ public:
     void Traverse(int subscript);
     void Delete();
     void IncreaseKey(int delta,int subscript);
+    void DecreaseKey(int delta,int subscript);
 };
 
 template<class T>
@@ -112,4 +113,10 @@ template<class T>
 void MinHeap<T>::IncreaseKey(int delta,int subscript){
     this->data[subscript] += delta;
     Maintaindown(this->data,subscript);
+}
+
+template<class T>
+void MinHeap<T>::DecreaseKey(int delta,int subscript){
+    this->data[subscript] -= delta;
+    Maintainup(this->data,subscript);
 }
