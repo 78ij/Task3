@@ -3,12 +3,13 @@
 
 #include<cstddef>
 #include<iostream>
+#include<stdexcept>
 
 using std::cout;
 using std::endl;
 using std::size_t;
 
-#define MAXSIZE            1000
+#define MAXSIZE            20
 #define MINHEAPLEFT(i)     (2*i + 1)
 #define MINHEAPRIGHT(i)    (2*i + 2 )
 #define MINHEAPPARENT(i)   ((int)((i-1)/2))
@@ -34,8 +35,10 @@ public:
 
 template<class T>
 MinHeap<T>::MinHeap(T *value,size_t size): currentsize(size),maxsize(MAXSIZE) {
-    data = new T[size];
-    for(int i = 0; i < size;i++){
+    data = new T[MAXSIZE];
+    if(size > MAXSIZE)
+        throw std::runtime_error("maximum size exceeded.");
+    for(int i = 0;i < size;i++){
         this->data[i] = value[i];
     }
     int leafborder = ((size - 1) / 2);
@@ -82,31 +85,17 @@ void MinHeap<T>::Traverse(int subscript){
 
 template<class T>
 void MinHeap<T>::Add(T newelement){
-    if((MAXSIZE - 1) >= currentsize){
-        T *temp = new T[currentsize + 1];
-        currentsize++;
-        for(int i = 0;i < currentsize - 1;i++){
-            temp[i] = this->data[i];
-        }
-        delete this->data;
-        this->data = temp;
-        temp = NULL;
+        this->currentsize++;
+        if(currentsize > MAXSIZE)
+            throw std::runtime_error("maximum size exceeded.");
         this->data[currentsize - 1] = newelement;
         Maintainup(this->data,currentsize - 1);
     }
-}
 
 template<class T>
 void MinHeap<T>::Delete(){
      data[0] = data[currentsize - 1];
-     T *temp = new T[currentsize - 1];
-     currentsize--;
-     for(int i = 0;i < currentsize;i++){
-         temp[i] = this->data[i];
-     }
-     delete this->data;
-     this->data = temp;
-     temp = NULL;
+     this->currentsize--;
      Maintaindown(this->data,0);
 }
 template<class T>

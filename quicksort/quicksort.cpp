@@ -3,6 +3,7 @@
 
 #include<ctime>
 #include<iostream>
+#include<cstdlib>
 
 using std::cout;
 using std::endl;
@@ -26,7 +27,7 @@ if(size <= 0) return;
     swap<T>(head + randnum,head + size - 1);
     int first = -1;
     int last = size - 1;
-    T pivot = *(head + last);
+    T pivot = head[last];
     for(int j = 0;j < last;j++){
         if(*(head + j) <= pivot){
             first++;
@@ -44,7 +45,7 @@ int main(){
     for(int i = 0; i < 1000000;i++){
         cin >> a[i];
     }
-    QuickSort<int>(a,10000);
+    QuickSort<int>(a,1000000);
     for(int i = 0; i < 1000000;i++){
         cout << a[i] << endl;
     }
